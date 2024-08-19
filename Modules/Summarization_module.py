@@ -1,12 +1,11 @@
 from transformers import MBartTokenizer, MBartForConditionalGeneration
-HF_DATASETS_OFFLINE=1 
-HF_HUB_OFFLINE=1
-
+import torch
 def summary(sum_text):
-    model_path = "/home/kali/1233/Models/mbart_ru_sum_gazeta"
-    tokenizer = MBartTokenizer.from_pretrained(model_path)
-    model = MBartForConditionalGeneration.from_pretrained(model_path,local_files_only=True)
-    model.to("cpu")
+    model_name = "mbart_ru_sum_gazeta"
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    tokenizer = MBartTokenizer.from_pretrained(model_name)
+    model = MBartForConditionalGeneration.from_pretrained(model_name)
+    model.to(device)
     article_text = sum_text
     input_ids = tokenizer(
         [article_text],
