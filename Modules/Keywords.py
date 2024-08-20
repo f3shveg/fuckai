@@ -19,12 +19,20 @@ except Exception as e:
 keywords = [keyword.strip('"') for keyword in keywords]       
 
     
-def keywordss(test_text):
-    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
-    classifier = pipeline("zero-shot-classification", model="MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
-    sequence_to_classify = test_text
-    candidate_labels = keywords
-    output = classifier(sequence_to_classify, candidate_labels, multi_label=True,)
-    print(output)
+from keybert import KeyBERT
 
+doc = """
+         Supervised learning is the machine learning task of learning a function that
+         maps an input to an output based on example input-output pairs. It infers a
+         function from labeled training data consisting of a set of training examples.
+         In supervised learning, each example is a pair consisting of an input object
+         (typically a vector) and a desired output value (also called the supervisory signal).
+         A supervised learning algorithm analyzes the training data and produces an inferred function,
+         which can be used for mapping new examples. An optimal scenario will allow for the
+         algorithm to correctly determine the class labels for unseen instances. This requires
+         the learning algorithm to generalize from the training data to unseen situations in a
+         'reasonable' way (see inductive bias).
+      """
+kw_model = KeyBERT()
+keywords = kw_model.extract_keywords(doc)
