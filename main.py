@@ -10,12 +10,3 @@ import tkinter as tk
 start=datetime.now()
 
 
-
-def main():
-    text1 = ""
-     
-
-   
-
-if __name__ == "__main__":
-    main()
